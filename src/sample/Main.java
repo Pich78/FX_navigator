@@ -16,6 +16,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -42,13 +43,19 @@ public class Main extends Application {
             /* Adding all sub menus at ones to a MenuBar. */
             menu.getMenus().addAll(menuFile, menuHelp);
 
+            TreeView<File> fileView = new TreeView<File>(new SimpleFileTreeItem(new File("C:\\")));
             /* Create a button. */
             Button btn = new Button();
-            btn.setText("Say Hello World.");
+            btn.setText("Set start location");
             btn.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    System.out.println("Hello World!");
+                    System.out.println("Set Start location");
+                    final DirectoryChooser directoryChooser = new DirectoryChooser();
+                    final File selectedDirectory = directoryChooser.showDialog(primaryStage);
+                    String startingFilePath = selectedDirectory.getAbsolutePath();
+                    System.out.println("startingFilePath = " + startingFilePath);
+                    fileView.setRoot(new SimpleFileTreeItem(new File(startingFilePath)));
                 }
             });
 
@@ -62,8 +69,6 @@ public class Main extends Application {
             /*
              * Adding a TreeView to the very left of the application window.
              */
-            TreeView<File> fileView = new TreeView<File>(
-                    new SimpleFileTreeItem(new File("C:\\")));
 
             /* Creating a SplitPane and adding the fileView. */
             SplitPane splitView = new SplitPane();
