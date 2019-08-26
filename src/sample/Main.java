@@ -92,7 +92,7 @@ public class Main extends Application {
 
             /* Adding a scene to the stage. */
             primaryStage.setScene(scene);
-            primaryStage.setTitle("FileRex");
+            primaryStage.setTitle("FX Navigator");
 
             /* Lift the curtain :0). */
             primaryStage.show();
